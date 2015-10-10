@@ -2,7 +2,7 @@ import numpy as np
 from helpers import *
 import json
 from sklearn import ensemble
-#from sklearn import dummy
+from sklearn import dummy
 from serialize import *
 import time
 
@@ -93,6 +93,7 @@ train = train.astype(float)
 test = test.astype(float)
 
 # Initialize the famous Random Forest Regressor from scikit-learn
+#clf = dummy.DummyRegressor();
 clf = ensemble.RandomForestRegressor(n_jobs=-1, n_estimators=2)
 print 'starting training'
 clf.fit(train, labels)
