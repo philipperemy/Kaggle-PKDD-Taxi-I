@@ -1,0 +1,2 @@
+NA_VALUE = 0
+Nb forest = 2

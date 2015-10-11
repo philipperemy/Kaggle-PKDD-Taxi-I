@@ -1,0 +1,38 @@
+
+# Initialize the famous Random Forest Regressor from scikit-learn
+# clf = linear_model.RANSACRegressor() - Works but not really efficient
+
+# clf = linear_model.SGDRegressor() # Doesnt work
+#http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RANSACRegressor.html#sklearn.linear_model.RANSACRegressor
+
+# http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor
+#clf = linear_model.TheilSenRegressor(n_jobs=-1) MEMORY_ERROR - http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.TheilSenRegressor.html#sklearn.linear_model.TheilSenRegressor
+#clf = ensemble.ExtraTreesRegressor(n_jobs=-1, n_estimators=50) - Works but not really efficient.
+#clf = dummy.DummyRegressor();
+
+#clf = ensemble.RandomForestRegressor(n_jobs=-1, n_estimators=2, verbose=1, random_state = 10) - 87
+
+#sample_leaf_options = [1,5,10,50,100,200,500]
+#for leaf_size in sample_leaf_options :
+#	clf = ensemble.RandomForestRegressor(n_jobs=-1, n_estimators=50, oob_score = True, verbose=1, random_state = 10, min_samples_leaf = leaf_size)
+#	print 'starting training'
+#	clf.fit(train, labels)
+#	print 'training done'
+#	preds = clf.predict(test)
+#	print 'prediction done'
+#
+#	sample = pd.read_csv('data/sampleSubmission.csv')
+#	sample['LATITUDE'] = preds[:,1]
+#	sample['LONGITUDE'] = preds[:,0]
+#	sample.to_csv('results/sampleSubmission-%s.csv' % leaf_size, index = False)
+#
+
+#dmregressor = dummy.DummyRegressor();
+#dmregressor.fit(train, labels);
+#preds2 = dmregressor.predict(test);
+
+#sample2['LATITUDE'] = preds2[:,1]
+#sample2['LONGITUDE'] = preds2[:,0]
+
+
+#print be.destinationMiningEvaluation(sample)

@@ -1,0 +1,30 @@
+TRIP_ID => useless
+
+count how many MISSING_DATA and remove them. if not too much. else advice
+
+[OK] TAXI_ID => factor
+
+[OK] -1 is for avoiding conflicts with the factor 0 assigned by factors
+
+[OK] put -1 in ORIGIN_CALL, ORIGIN_STAND if empty
+[OK] ORIGIN_CALL, ORIGIN_STAND => factors
+
+[OK] process TIMESTAMP.
+[OK] should be hour of day
+[OK] convert to date and extract hour
+
+[OK] DAY_TYPE => factor
+[OK] CALL_TYPE => factor
+
+[OK] POLYLINE => 15 seconds
+[OK] Maybe we can use this fact. Duration.
+
+Last location framework 221 very useful
+https://www.kaggle.com/benhamner/pkdd-15-predict-taxi-service-trajectory-i/last-location-benchmark/code
+
+Speeds
+https://www.kaggle.com/hasithakanchana/pkdd-15-predict-taxi-service-trajectory-i/show-speed/code
+
+
+
+Put NA_VALUE = -1

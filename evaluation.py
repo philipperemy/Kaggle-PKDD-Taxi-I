@@ -5,6 +5,7 @@ from math import sqrt
 
 import numpy as np
 
+
 def HaversineDistance(lat1,lon1,lat2,lon2):
     REarth = 6371
     lat = np.absolute(lat1-lat2)*pi/180
@@ -16,8 +17,10 @@ def HaversineDistance(lat1,lon1,lat2,lon2):
     d = REarth*d
     return(d)
 
+
 def RMSE(pre,real):
     return(sqrt(np.mean((pre-real)*(pre-real))))
+
 
 def meanHaversineDistance(lat1,lon1,lat2,lon2):
     return(np.mean(HaversineDistance(lat1,lon1,lat2,lon2)))
@@ -25,6 +28,7 @@ def meanHaversineDistance(lat1,lon1,lat2,lon2):
 
 def travelTimePredictionEvaluation(submission,answers):
     return (RMSE(submission,answers))
+
 
 def destinationMiningEvaluation(submission,answers):
     lat_sub = submission['LATITUDE']
