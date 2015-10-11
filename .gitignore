@@ -3,3 +3,5 @@
 .idea/
 serialize/
 *.imported
+results/
+serialize/
