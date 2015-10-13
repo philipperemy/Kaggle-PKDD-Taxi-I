@@ -34,7 +34,7 @@ def new_data_frame():
 def pre_process_generic_data(filename, isTest = False):
 
     lat1 = []; long1 = []; lat2 = []; long2 = []; lat_final = []; long_final = [];
-    hours = []; duration = []; mean_speed = []; last_speed = []
+    hours = []; duration = []; mean_speed = []; last_speed = []; last_last_speed = []
 
     count = 1
     chunk_size = 10 ** 5 # 10^5 = 100.000 lines at a time
@@ -58,11 +58,17 @@ def pre_process_generic_data(filename, isTest = False):
                     polyline_tmp.pop()
 
                 speeds = sp.speeds(polyline_tmp)
-                mean_speed.append(np.round(np.mean(speeds)))
+                mean_speed.append(np.mean(speeds))
                 last_speed.append(speeds[-1])
+
+                if len(speeds) > 1:
+                    last_last_speed.append(speeds[-2]) #two last speeds to have an acceleration measure
+                else:
+                    last_last_speed.append(0)
             else:
                 mean_speed.append(0)
                 last_speed.append(0)
+                last_last_speed.append(0)
 
             if isTest:
                 append_to_list(lat1, polyline, 0, LAT_ID)
@@ -83,9 +89,9 @@ def pre_process_generic_data(filename, isTest = False):
                 print count
 
     if isTest :
-        return lat1, long1, lat2, long2, hours, duration, mean_speed, last_speed
+        return lat1, long1, lat2, long2, hours, duration, mean_speed, last_speed, last_last_speed
     else:
-        return lat1, long1, lat2, long2, lat_final, long_final, hours, duration, mean_speed, last_speed
+        return lat1, long1, lat2, long2, lat_final, long_final, hours, duration, mean_speed, last_speed, last_last_speed
 
 
 def pre_process_train_data():

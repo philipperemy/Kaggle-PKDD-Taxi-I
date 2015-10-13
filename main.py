@@ -13,9 +13,10 @@ train['LAT2'] = unserialize("lat2")
 train['LONG1'] = unserialize("long1")
 train['LONG2'] = unserialize("long2")
 train['HOUR'] = unserialize("hours")
-train['DURATION'] = unserialize("duration")
-train['SPEED'] = unserialize("speed")
-train['LAST_SPEED'] = unserialize("last_speed")
+train[DURATION] = unserialize("duration")
+train[SPEED] = unserialize("speed")
+train[LAST_SPEED] = unserialize("last_speed")
+train[LAST_LAST_SPEED] = unserialize("last_last_speed")
 
 train['LATF'] = unserialize("lat_final")
 train['LONGF'] = unserialize("long_final")
@@ -25,9 +26,10 @@ test['LAT2'] = unserialize("lat2_t")
 test['LONG1'] = unserialize("long1_t")
 test['LONG2'] = unserialize("long2_t")
 test['HOUR'] = unserialize("hours_t")
-test['DURATION'] = unserialize("duration_t")
-test['SPEED'] = unserialize("speed_t")
-test['LAST_SPEED'] = unserialize("last_speed_t")
+test[DURATION] = unserialize("duration_t")
+test[SPEED] = unserialize("speed_t")
+test[LAST_SPEED] = unserialize("last_speed_t")
+test[LAST_LAST_SPEED] = unserialize("last_last_speed_t")
 
 train.to_csv("debug/debug_train_before_cleaning.csv")
 test.to_csv("debug/debug_test_before_cleaning.csv")
@@ -38,13 +40,13 @@ test.to_csv("debug/debug_test_before_cleaning.csv")
 print "remove lines when: missing data, speed is too high or 0, travel is too long, no end-points",
 train = train[train[MISSING_DATA] != 1]
 
-train = train[train['SPEED'] < MAX_SPEED_LIMIT_BEFORE_DISCARDING]
-train = train[train['SPEED'] > 0] #speed must be positive
+train = train[train[SPEED] < MAX_SPEED_LIMIT_BEFORE_DISCARDING]
+train = train[train[SPEED] > 0] #speed must be positive
 
-train = train[train['LAST_SPEED'] < MAX_SPEED_LIMIT_BEFORE_DISCARDING]
-train = train[train['LAST_SPEED'] > 0] #speed must be positive
+train = train[train[LAST_SPEED] < MAX_SPEED_LIMIT_BEFORE_DISCARDING]
+train = train[train[LAST_SPEED] > 0] #speed must be positive
 
-train = train[train['DURATION'] < MAX_DURATION_BEFORE_DISCARDING]
+train = train[train[DURATION] < MAX_DURATION_BEFORE_DISCARDING]
 train = train[train['LATF'] != NA_VALUE]
 train = train[train['LONGF'] != NA_VALUE]
 print " ... [OK]"
@@ -87,7 +89,7 @@ test = test.astype(float)
 print "... [OK]"
 
 print "learning process"
-clf = ensemble.RandomForestRegressor(n_jobs=-1, n_estimators=10, verbose = 1)
+clf = ensemble.RandomForestRegressor(n_jobs=-1, n_estimators=100, verbose = 1)
 clf.fit(train, labels)
 print " ... [OK]"
 
