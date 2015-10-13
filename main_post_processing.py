@@ -50,6 +50,9 @@ train = train[train['LATF'] != NA_VALUE]
 train = train[train['LONGF'] != NA_VALUE]
 print " ... [OK]"
 
+test_duration = test.copy()
+test_duration = test_duration.loc[test_duration["DURATION"] > 3300]
+
 # drop columns for benchmark model
 print "drop columns",
 train = drop_useless_columns(train)
@@ -88,7 +91,7 @@ test = test.astype(float)
 print "... [OK]"
 
 print "learning process"
-clf = ensemble.RandomForestRegressor(n_jobs=-1, n_estimators=100, verbose = 1)
+clf = ensemble.RandomForestRegressor(n_jobs=-1, n_estimators=1, verbose = 1)
 clf.fit(train, labels)
 print " ... [OK]"
 
@@ -101,4 +104,13 @@ print "publishing to file " + publish_file,
 sample = pd.read_csv('data/sampleSubmission.csv')
 sample['LATITUDE'] = predictions[:,1]
 sample['LONGITUDE'] = predictions[:,0]
+
+for trip_id in sample['TRIP_ID']:
+    cond = test_duration["TRIP_ID"] == trip_id
+    if sum(cond) == 1:
+        lat1 = test_duration[cond]["LAT1"]
+        long1 = test_duration[cond]["LONG1"]
+        sample.loc[sample['TRIP_ID'] == trip_id,'LATITUDE'] = long1
+        sample.loc[sample['TRIP_ID'] == trip_id,'LONGITUDE'] = lat1
+
 sample.to_csv(publish_file, index = False)
